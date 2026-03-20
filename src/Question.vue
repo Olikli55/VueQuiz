@@ -9,6 +9,18 @@ const emit = defineEmits([
     'selectedAnswer'
 ])
 
+
+
+import { watch } from 'vue'
+
+watch(() => props.checkedAnswers, (val) => {
+  console.log(props.checkedAnswers)
+  if (val && props.question.selected_answer === props.question.correct_answer) {
+    correct++ // your global var
+  }
+})
+
+
 </script>
 
 <template>
@@ -20,6 +32,7 @@ const emit = defineEmits([
         :key="index"
         @click="emit('selectedAnswer', answer)"
         :class="{
+          'blank':  checkedAnswers === false,
           'selected': answer === question.selected_answer,
           'correct': checkedAnswers && answer === question.correct_answer,
           'incorrect': checkedAnswers && answer !== question.correct_answer
